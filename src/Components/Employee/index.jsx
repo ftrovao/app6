@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import "./../../App.css";
 import Form from "./Form";
 import List from "./List";
+import moment from 'moment'
+
+
 
 function Index() {
+
   //========================
   // initialState comprend deux choses:
   // 1-objet vide;
@@ -15,7 +19,7 @@ function Index() {
       id: 0,
       nom: "",
       prenom: "",
-      date: "",
+      date: null,
       titre: "",
       sex: "",
       handicapee: false,
@@ -64,13 +68,29 @@ function Index() {
 
   //handleInputChange: recoit tous les changements dans le form;
   function handleInputChange(e) {
+    console.log("e.target: ", e.target.checked)
+    console.log("employee.titre: ",  e.target.value.titre)
+    console.log(e)
     //transformation du "id" recu comme string, en entier.
-    const value =
-      e.target.name === "id" ? parseInt(e.target.value) : e.target.value;
-    //a chaque changement
+    let value ="";
+    if (e.target.name === "id") {
+      value = parseInt(e.target.value)
+    } else if (e.target.name === "handicapee"){
+      value = e.target.checked
+    } else {
+      value = e.target.value
+    }
+   
     setEmployee({ ...employee, [e.target.name]: value });
   }
 
+
+  function handleDateChange(fieldName, date) {
+    setEmployee((prevState) => ({
+      ...prevState,
+      [fieldName]: moment(date).toISOString(),
+    }));
+  }
   function handleResetForm() {
     setEmployee(initialState.employee);
   }
@@ -123,6 +143,7 @@ function Index() {
   }
 
   return (
+    
     <>
       <Form
         employee={employee}
@@ -130,6 +151,7 @@ function Index() {
         handleInputChange={handleInputChange}
         handleResetForm={handleResetForm}
         handleSubmit={handleSubmit}
+        handleDateChange={handleDateChange}
       />
       <List
         employeeList={employeeList}
@@ -138,7 +160,8 @@ function Index() {
         handleRadioChange={handleRadioChange}
         handleModify={handleModify}
       />
-    </>
+     </>
+    
   );
 }
 export default Index;

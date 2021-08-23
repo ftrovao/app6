@@ -4,7 +4,7 @@
 
 body{
   padding: 50px;
-  background-color: rgb(173, 233, 228);
+
 }
 
 .form{
@@ -27,10 +27,10 @@ td {
   font-size: 15px;
 }
 
-th {
+/* th {
   background-color: rgb(117, 201, 250);
-}
-td {
+} */
+/* td {
   background-color: rgb(205, 235, 253);
-}
+} */
 
